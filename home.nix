@@ -51,6 +51,10 @@
     # '';
   };
 
+  programs.bash.enable = true;
+  programs.zsh.enable = true;
+
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -69,6 +73,20 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    COLIN = "Hello";
+
+    #
+    # LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+      # pkgs.stdenv.cc.cc.lib
+      # pkgs.zlib
+      # pkgs.openssl
+      # pkgs.libffi
+    # ];
+
+# Nice-to-haves: ensure pip builds against Nix-provided headers/libs
+# (helps when pip needs to compile C/C++ extensions)
+    # NIX_CFLAGS_COMPILE = "-I${pkgs.openssl.dev}/include";
+    # NIX_LDFLAGS = "-L${pkgs.openssl.out}/lib";
   };
 
   # Let Home Manager install and manage itself.
