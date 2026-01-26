@@ -65,6 +65,13 @@ in
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # /etc/nixos/configuration.nix
+  security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.swaylock = { };
+
+  programs.niri.enable = true;
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -125,6 +132,13 @@ in
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    alacritty
+    fuzzel
+    swaylock
+    mako
+    swayidle
+    xwayland-satellite
+
     brave
     btop
     clang
