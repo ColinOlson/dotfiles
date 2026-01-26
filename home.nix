@@ -58,9 +58,9 @@
         "la" = "l -a";
 
         "vrc" = "zsh -c 'cd ~/Dotfiles; vi configuration.nix'";
-        "src" = "zsh -c 'cd ~/Dotfiles; sudo nixos-rebuild switch --flake .;' source ~/.zshrc";
+        "src" = "zsh -c '~/bin/nrs' && source ~/.zshrc";
         "vrh" = "zsh -c 'cd ~/Dotfiles; vi home.nix'";
-        "srh" = "zsh -c 'cd ~/Dotfiles; home-manager switch --flake .;' source ~/.zshrc";
+        "srh" = "zsh -c 'cd ~/Dotfiles; home-manager switch --flake .' && source ~/.zshrc";
         "rc" = "source ~/.zshrc";
 
         "lg" = "lazygit";

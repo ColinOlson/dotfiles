@@ -30,14 +30,14 @@
     {
       nixosConfigurations."nixos-lappy" = nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = { hostname = "nixos-lappy"; };
+        modules = [ ./configuration.nix ];
+      };
 
-        specialArgs = {
-          hostname = "nixos-lappy";
-        };
-
-        modules = [
-          ./configuration.nix
-        ];
+      nixosConfigurations."nixos-desktop" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { hostname = "nixos-desktop"; };
+        modules = [ ./configuration.nix ];
       };
 
       homeConfigurations.colino = home-manager.lib.homeManagerConfiguration {

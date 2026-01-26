@@ -1,0 +1,11 @@
+#!/run/current-system/sw/bin/env bash
+
+if [ -z "$HOSTNAME" ]; then
+    echo "No hostname. Can't rebuild"
+    exit 1
+fi
+
+echo "Rebuilding for host: $HOSTNAME"
+cd ~/Dotfiles || exit 1
+
+sudo nixos-rebuild switch --flake .#"$HOSTNAME"
