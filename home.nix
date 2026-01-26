@@ -131,5 +131,6 @@
     home-manager.enable = true;
   };
 
+  xdg.configFile.niri.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/niri";
   xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
 }
