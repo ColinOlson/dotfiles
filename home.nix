@@ -17,10 +17,11 @@
 
   home.file = {
     ".p10k.zsh".source = ./config/p10k.zsh;
+    "bin".source = ./bin;
   };
 
   programs.bash.enable = true;
-  programs.zsh = { 
+  programs.zsh = {
     enable = true;
 
     # Optional but recommended quality-of-life
@@ -38,18 +39,25 @@
       "src" = "zsh -c 'cd ~/Dotfiles; sudo nixos-rebuild switch --flake .;' source ~/.zshrc";
       "vrh" = "zsh -c 'cd ~/Dotfiles; vi home.nix'";
       "srh" = "zsh -c 'cd ~/Dotfiles; home-manager switch --flake .;' source ~/.zshrc";
+      "rc" = "source ~/.zshrc";
 
       "lg" = "lazygit";
       "ld" = "lazydocker";
 
       "dc" = "docker compose";
-
+      "nd" = "nix develop .";
     };
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "docker" "python" "pip" "sudo" ];
-      theme = ""; 
+      plugins = [
+        "git"
+        "docker"
+        "python"
+        "pip"
+        "sudo"
+      ];
+      theme = "";
     };
 
     initContent = ''
@@ -64,8 +72,8 @@
   programs.tmux = {
     enable = true;
     escapeTime = 0;
-    plugins = [ 
-      pkgs.tmuxPlugins.vim-tmux-navigator 
+    plugins = [
+      pkgs.tmuxPlugins.vim-tmux-navigator
       pkgs.tmuxPlugins.catppuccin
     ];
     extraConfig = builtins.readFile ./config/tmux.conf;

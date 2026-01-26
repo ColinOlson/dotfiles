@@ -1,21 +1,39 @@
-{ config, pkgs, hostname, ... }:
+# vim: set ts=2 sw=2: #
 
 {
-  imports = [ 
+  config,
+  pkgs,
+  hostname,
+  ...
+}:
+
+let
+  myPython = pkgs.python3.withPackages (
+    ps: with ps; [
+      pydbus
+      pygobject3
+    ]
+  );
+in
+{
+  imports = [
     ./machines/${hostname}/hardware-configuration.nix
   ];
 
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
-      stdenv.cc.cc.lib  # libstdc++.so.6
+      stdenv.cc.cc.lib # libstdc++.so.6
       zlib
       openssl
       libffi
     ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   virtualisation.docker = {
     enable = true;
@@ -26,13 +44,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-# Use latest kernel.
+  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = hostname;
   networking.networkmanager.enable = true;
   networking.hosts = {
-    "127.0.0.1" = [ "sql.cartanium.docker" "elastic.cartanium.docker" ];
+    "127.0.0.1" = [
+      "sql.cartanium.docker"
+      "elastic.cartanium.docker"
+    ];
   };
 
   time.timeZone = "America/Vancouver";
@@ -84,7 +105,11 @@
     isNormalUser = true;
     description = "Colin Olson";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     packages = with pkgs; [
       kdePackages.kate
     ];
@@ -105,6 +130,7 @@
     clang
     curl
     davinci-resolve
+    dbus
     direnv
     discord
     docker
@@ -116,6 +142,7 @@
     fd
     fzf
     gcc
+    glib
     gnumake
     htop
     jetbrains.datagrip
@@ -132,11 +159,12 @@
     lutris
     neovim
     nerd-fonts.meslo-lg
+    nixfmt
     nodejs
     oxker
-    postman
     pkg-config
-    python3
+    postman
+    myPython
     qutebrowser
     rclone
     ripgrep
@@ -157,7 +185,7 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
