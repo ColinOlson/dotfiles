@@ -151,6 +151,7 @@ in
     eza
     fastfetch
     fd
+    filezilla
     fzf
     gcc
     glib
