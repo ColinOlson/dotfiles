@@ -31,6 +31,9 @@
 
   networking.hostName = hostname;
   networking.networkmanager.enable = true;
+  networking.hosts = {
+    "127.0.0.1" = [ "sql.cartanium.docker" "elastic.cartanium.docker" ];
+  };
 
   time.timeZone = "America/Vancouver";
 
@@ -102,6 +105,7 @@
     clang
     curl
     davinci-resolve
+    direnv
     discord
     docker
     dotnet-sdk_10
@@ -130,23 +134,14 @@
     nerd-fonts.meslo-lg
     nodejs
     oxker
+    postman
     pkg-config
-    openssl
-    zlib
-    libffi
-    readline
-    sqlite
-    #postgresql  
     python3
-    python311
-    python311.pkgs.pip
-    python311.pkgs.virtualenv
     qutebrowser
     rclone
     ripgrep
     rustdesk
     rustup
-    tmux
     tree-sitter
     ungoogled-chromium
     unzip
@@ -156,11 +151,6 @@
 
   programs.steam = {
     enable = true;
-  };
-
-  programs.git = {
-    enable = true;
-    package = pkgs.gitFull;
   };
 
   hardware.graphics = {

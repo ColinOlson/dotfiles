@@ -1,3 +1,5 @@
+# vim: set ts=2 sw=2:
+
 { config, pkgs, ... }:
 
 {
@@ -9,11 +11,12 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
+    statix # Nix static analyzer? Shuts vim up
     zsh-powerlevel10k
   ];
 
   home.file = {
-    ".p10k.zsh".source = ./.p10k.zsh;
+    ".p10k.zsh".source = ./config/p10k.zsh;
   };
 
   programs.bash.enable = true;
@@ -25,10 +28,27 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    shellAliases = {
+      "ls" = "eza --icons -l";
+      "ll" = "ls";
+      "l" = "ll";
+      "la" = "l -a";
+
+      "vrc" = "zsh -c 'cd ~/Dotfiles; vi configuration.nix'";
+      "src" = "zsh -c 'cd ~/Dotfiles; sudo nixos-rebuild switch --flake .;' source ~/.zshrc";
+      "vrh" = "zsh -c 'cd ~/Dotfiles; vi home.nix'";
+      "srh" = "zsh -c 'cd ~/Dotfiles; home-manager switch --flake .;' source ~/.zshrc";
+
+      "lg" = "lazygit";
+      "ld" = "lazydocker";
+
+      "dc" = "docker compose";
+
+    };
+
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" "docker" "python" "pip" "sudo" ];
-      # We'll set the theme via initExtra so it’s explicit and flexible.
       theme = ""; 
     };
 
@@ -41,7 +61,15 @@
     '';
   };
 
-  programs.neovide.enable = true;
+  programs.tmux = {
+    enable = true;
+    escapeTime = 0;
+    plugins = [ 
+      pkgs.tmuxPlugins.vim-tmux-navigator 
+      pkgs.tmuxPlugins.catppuccin
+    ];
+    extraConfig = builtins.readFile ./config/tmux.conf;
+  };
 
   programs.neovim = {
     enable = true;
@@ -50,18 +78,29 @@
     vimAlias = true;
   };
 
+  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
+
+  programs.neovide.enable = true;
+
+  programs.git = {
+    enable = true;
+    package = pkgs.gitFull;
+
+    settings = {
+      user.name = "Colin Olson";
+      user.email = "thecolin@gmail.com";
+      alias = {
+        ci = "commit";
+        co = "checkout";
+        st = "status";
+
+        g = "!git gui";
+        v = "!gitk --all";
+      };
+    };
+  };
+
   home.sessionVariables = {
-    COLIN = "Hello again";
-
-    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-      pkgs.stdenv.cc.cc.lib
-      pkgs.zlib
-      pkgs.openssl
-      pkgs.libffi
-    ];
-
-    NIX_CFLAGS_COMPILE = "-I${pkgs.openssl.dev}/include";
-    NIX_LDFLAGS = "-L${pkgs.openssl.out}/lib";
   };
 
   programs.home-manager.enable = true;
