@@ -34,6 +34,21 @@
     };
   };
 
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      {
+        timeout = 600;
+        command = "/home/colino/.nix-profile/bin/noctalia-shell ipc call lockScreen lock";
+      }
+      {
+        timeout = 630;
+        command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+      }
+    ];
+    events.after-resume = "${pkgs.niri}/bin/niri msg action power-on-monitors";
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   programs = {

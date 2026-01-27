@@ -91,7 +91,7 @@ in
 
     package = pkgs.sunshine.override {
       cudaSupport = true;
-      cudaPackages = pkgs.cudaPackages;
+      inherit (pkgs) cudaPackages;
     };
   };
 
@@ -117,9 +117,6 @@ in
       "wheel"
       "docker"
     ];
-    packages = with pkgs; [
-      kdePackages.kate
-    ];
   };
 
   programs.firefox = {
@@ -133,9 +130,6 @@ in
 
   environment.systemPackages = with pkgs; [
     alacritty
-    fuzzel
-    xwayland-satellite
-
     brave
     btop
     clang
@@ -169,6 +163,7 @@ in
     libreoffice
     lua-language-server
     lutris
+    myPython
     neovim
     nerd-fonts.meslo-lg
     nixfmt
@@ -176,17 +171,19 @@ in
     oxker
     pkg-config
     postman
-    myPython
     qutebrowser
     rclone
+    remmina
     ripgrep
     rustdesk
     rustup
+    swayidle
     tree-sitter
     ungoogled-chromium
     unzip
     vlc
     wget
+    xwayland-satellite
   ];
 
   programs.steam = {
