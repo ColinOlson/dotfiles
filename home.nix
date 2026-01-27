@@ -26,6 +26,8 @@
     file = {
       ".p10k.zsh".source = ./config/p10k.zsh;
       "bin".source = ./bin;
+      ".ideavimrc".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/ideavimrc";
     };
 
     sessionVariables = {
@@ -83,6 +85,10 @@
       };
 
       initContent = ''
+        if [[ -n "$IN_NIX_SHELL" ]]; then
+          typeset -g POWERLEVEL9K_DISABLE_GITSTATUS=true
+        fi
+
         # Powerlevel10k (theme)
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
@@ -131,6 +137,8 @@
     home-manager.enable = true;
   };
 
-  xdg.configFile.niri.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/niri";
+  xdg.configFile."niri/config.kdl".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/niri/config.kdl";
+
   xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
 }

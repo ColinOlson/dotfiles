@@ -1,0 +1,76 @@
+let mapleader="\\"
+
+sethandler <C-A> a:vim
+sethandler <C-I> a:vim
+sethandler <C-O> a:vim
+sethandler <C-S> a:vim
+sethandler <S-F5> a:vim
+
+Plug 'preservim/nerdtree'
+Plug 'easymotion/vim-easymotion'
+set quickscope
+
+set which-key
+set notimeout
+" make the popup show up 'instantly'
+let g:WhichKey_DefaultDelay = 0
+
+set showmode
+set scrolloff=5
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set number
+
+map <leader>ee :e ~/.ideavimrc<cr>
+map <leader>er <Action>(IdeaVim.ReloadVimRc.reload)
+
+map <leader>z <Action>(ToggleDistractionFreeMode)
+
+map <leader>tt <Action>(ActivateTerminalToolWindow)
+map <leader>tc <Action>(Terminal.OpenInTerminal)
+
+map <leader>ff <Action>(GotoFile)
+map <leader>fc <Action>(GotoClass)
+map gi <Action>(GotoImplementation)
+map gy <Action>(GotoTypeDeclaration)
+
+map <leader>q :NERDTreeFocus<CR>
+map <leader>Q :NERDTreeFind<CR>
+
+map <leader><leader> <Action>(easymotion-s)
+map <leader>rr <Action>(RenameElement)
+
+map <C-j> <Action>(PreviousTab)
+map <C-k> <Action>(NextTab)
+map <C-l> <Action>(NextSplitter)
+map <C-h> <Action>(PrevSplitter)
+
+map <leader>wc <Action>(CloseContent)
+map <leader>wo <Action>(UnsplitAll)
+map <leader>wv <Action>(SplitVertically)
+map <leader>wC <Action>(CloseAllEditors)
+
+map <leader>h :nohlsearch<cr>
+
+map <leader>iv <Action>(VimFindActionIdAction)
+
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>dm <Action>(XDebugger.MuteBreakpoints)
+map <leader>dd <Action>(Debug)
+
+map <F10> <Action>(StepOver)
+map <F11> <Action>(StepInto)
+map <S-F11> <Action>(StepOut)
+map <F9> <Action>(ToggleLineBreakpoint)
+map <F5> <Action>(Resume)
+map <C-S-F5> <Action>(Rerun)
+map <S-F5> <Action>(Stop)
+map <C-F5> <Action>(Debug)
+map <C-S-F6> <Action>(DebugClass)
+
+map <leader>cc <Action>(CommentByLineComment)
+map <leader>ko <Action>(OrganizeImports)
+map <leader>kd <Action>(ReformatCode)
+imap <C-i> <Action>(CodeCompletion)

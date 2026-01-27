@@ -1,7 +1,6 @@
 # vim: set ts=2 sw=2: #
-#
 {
-  description = "A very basic flake";
+  description = "Colin's Nixos config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -30,13 +29,17 @@
     {
       nixosConfigurations."nixos-lappy" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { hostname = "nixos-lappy"; };
+        specialArgs = {
+          hostname = "nixos-lappy";
+        };
         modules = [ ./configuration.nix ];
       };
 
       nixosConfigurations."nixos-desktop" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { hostname = "nixos-desktop"; };
+        specialArgs = {
+          hostname = "nixos-desktop";
+        };
         modules = [ ./configuration.nix ];
       };
 
