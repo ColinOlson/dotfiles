@@ -166,6 +166,7 @@ in
     myPython
     neovim
     nerd-fonts.meslo-lg
+    nirius
     nixfmt
     nodejs
     oxker

@@ -115,6 +115,7 @@ layout {
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
 spawn-sh-at-startup "noctalia-shell"
+spawn-at-startup "niriusd"
 
 hotkey-overlay {
     skip-at-startup
@@ -163,6 +164,11 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Run launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+Semicolon hotkey-overlay-title="Run an Browser: brave" { spawn "brave"; }
+
+    Mod+P { spawn-sh "nirius focus --app-id=jetbrains-pycharm"; }
+    Mod+M { spawn-sh "nirius focus --title='Apple Music'"; }
+    Mod+D { spawn-sh "nirius focus --app-id=discord"; }
+    Mod+G { spawn-sh "nirius focus --app-id=jetbrains-datagrip"; }
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
 
