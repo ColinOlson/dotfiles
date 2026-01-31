@@ -18,9 +18,11 @@
     stateVersion = "25.11";
 
     packages = with pkgs; [
+      omnisharp-roslyn
+      pyright
+      rust-analyzer
       statix # Nix static analyzer? Shuts vim up
       zsh-powerlevel10k
-      quickshell
     ];
 
     file = {

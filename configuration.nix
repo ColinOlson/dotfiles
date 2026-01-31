@@ -127,6 +127,9 @@ in
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-sdk-7.0.410"
+  ];
 
   environment.systemPackages = with pkgs; [
     alacritty
@@ -139,13 +142,14 @@ in
     direnv
     discord
     docker
-    dotnet-sdk_10
+    dotnet-sdk_7
     duf
     dust
     eza
     fastfetch
     fd
     filezilla
+    fuzzel
     fzf
     gcc
     glib
@@ -174,12 +178,14 @@ in
     pkg-config
     playerctl
     postman
+    quickshell
     qutebrowser
     rclone
     remmina
     ripgrep
     rustdesk
     rustup
+    sshs
     swayidle
     tmuxp
     tree-sitter
@@ -188,6 +194,7 @@ in
     vlc
     wget
     wofi
+    xwayland-satellite
     xwayland-satellite
   ];
 
