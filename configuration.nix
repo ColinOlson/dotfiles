@@ -156,6 +156,7 @@ in
     jetbrains.rider
     jetbrains.rust-rover
     jetbrains.webstorm
+    jq
     keepass
     kitty
     lazydocker
@@ -171,6 +172,7 @@ in
     nodejs
     oxker
     pkg-config
+    playerctl
     postman
     qutebrowser
     rclone
@@ -179,11 +181,13 @@ in
     rustdesk
     rustup
     swayidle
+    tmuxp
     tree-sitter
     ungoogled-chromium
     unzip
     vlc
     wget
+    wofi
     xwayland-satellite
   ];
 

@@ -60,5 +60,5 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 }
