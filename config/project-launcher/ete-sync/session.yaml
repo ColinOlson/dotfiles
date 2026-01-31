@@ -1,0 +1,15 @@
+session_name: ete-sync
+start_directory: ~/Work/ete-sync-heroku-docker/
+
+windows:
+  - window_name: sync
+    options:
+      automatic-rename: off
+      allow-rename: off
+    start_directory: ~/Work/ete-sync-heroku-docker/projects/
+    panes:
+      - shell_command:
+          - nix develop ./nix
+          - cd ./ete-sync-heroku
+          - setsid -f pycharm . > /dev/null 2>&1 < /dev/null
+          - lazygit
