@@ -14,6 +14,9 @@ let
       pygobject3
     ]
   );
+  myYarn = pkgs.nodejs_20.pkgs.yarn.override {
+    nodejs = pkgs.nodejs_20;
+  };
 in
 {
   imports = [
@@ -169,11 +172,12 @@ in
     lua-language-server
     lutris
     myPython
+    myYarn
     neovim
     nerd-fonts.meslo-lg
     nirius
     nixfmt
-    nodejs
+    nodejs_20
     oxker
     pkg-config
     playerctl
@@ -194,7 +198,6 @@ in
     vlc
     wget
     wofi
-    xwayland-satellite
     xwayland-satellite
   ];
 

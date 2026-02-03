@@ -1,16 +1,14 @@
-session_name: ete-sync
+session_name: buyete-ui
 start_directory: ~/Work/ete-sync-heroku-docker/
 
 windows:
-  - window_name: sync
+  - window_name: buyete
     options:
       automatic-rename: off
       allow-rename: off
     start_directory: ~/Work/ete-sync-heroku-docker/projects/
     panes:
       - shell_command:
-          - nix develop ./nix
-          - cd ./ete-sync-heroku
-          - source .venv/bin/activate
-          - setsid -f pycharm . > /dev/null 2>&1 < /dev/null
+          - cd ./buyete-sync-ui
+          - setsid -f webstorm . > /dev/null 2>&1 < /dev/null
           - lazygit
