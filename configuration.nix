@@ -129,6 +129,11 @@ in
     };
   };
 
+  programs.gamescope = {
+    enable = true;
+    capSysNice = false; # recommended for better scheduling/latency
+  };
+
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
     "dotnet-sdk-7.0.410"
@@ -196,6 +201,7 @@ in
     ungoogled-chromium
     unzip
     vlc
+    vulkan-tools
     wget
     wofi
     xwayland-satellite
