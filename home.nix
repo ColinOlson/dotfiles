@@ -51,6 +51,11 @@
     events.after-resume = "${pkgs.niri}/bin/niri msg action power-on-monitors";
   };
 
+  services.espanso = {
+    enable = true;
+    package = pkgs.espanso-wayland;
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   programs = {
