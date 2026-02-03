@@ -166,9 +166,11 @@ binds {
     Mod+Semicolon hotkey-overlay-title="Run an Browser: brave" { spawn "brave"; }
 
     Mod+P { spawn-sh "nirius focus --app-id=jetbrains-pycharm"; }
+    Mod+G { spawn-sh "nirius focus --app-id=jetbrains-datagrip"; }
+    Mod+S { spawn-sh "nirius focus --app-id=jetbrains-webstorm"; }
+
     Mod+M { spawn-sh "nirius focus --title='Apple Music'"; }
     Mod+D { spawn-sh "nirius focus --app-id=discord"; }
-    Mod+G { spawn-sh "nirius focus --app-id=jetbrains-datagrip"; }
     Mod+Shift+O { spawn-sh "~/.config/project-launcher/launcher.py"; }
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }

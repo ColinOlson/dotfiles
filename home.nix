@@ -18,6 +18,7 @@
     stateVersion = "25.11";
 
     packages = with pkgs; [
+      gitflow
       omnisharp-roslyn
       pyright
       rust-analyzer

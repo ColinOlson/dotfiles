@@ -197,6 +197,7 @@ in
     rustup
     sshs
     swayidle
+    thunderbird
     tmuxp
     tree-sitter
     ungoogled-chromium
