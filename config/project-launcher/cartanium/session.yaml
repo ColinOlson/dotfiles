@@ -1,0 +1,18 @@
+session_name: cartanium
+start_directory: ~/Work/cartanium-search-v3/
+
+windows:
+  - window_name: cartanium
+    start_directory: ~/Work/cartanium-search-v3/projects/api/
+    panes:
+      - shell_command:
+          - nix develop .
+          - setsid -f rider ./src/CartaniumV3.sln > /dev/null 2>&1 < /dev/null
+          - cd ./src/CartaniumSearch
+          - bash run.sh
+
+  - window_name: git
+    start_directory: ~/Work/cartanium-search-v3/projects/api/
+    panes:
+      - shell_command:
+          - lazygit

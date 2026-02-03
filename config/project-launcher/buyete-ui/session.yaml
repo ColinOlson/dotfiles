@@ -3,12 +3,14 @@ start_directory: ~/Work/ete-sync-heroku-docker/
 
 windows:
   - window_name: buyete
-    options:
-      automatic-rename: off
-      allow-rename: off
-    start_directory: ~/Work/ete-sync-heroku-docker/projects/
+    start_directory: ~/Work/ete-sync-heroku-docker/projects/buyete-sync-ui
     panes:
       - shell_command:
-          - cd ./buyete-sync-ui
           - setsid -f webstorm . > /dev/null 2>&1 < /dev/null
+          - yarn run dev
+
+  - window_name: git
+    start_directory: ~/Work/ete-sync-heroku-docker/projects/buyete-sync-ui
+    panes:
+      - shell_command:
           - lazygit

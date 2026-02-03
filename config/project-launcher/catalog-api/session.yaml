@@ -1,0 +1,23 @@
+session_name: catalog-api
+start_directory: ~/Work/catalog_api/
+
+windows:
+  - window_name: catalog-api
+    options:
+      automatic-rename: off
+      allow-rename: off
+    start_directory: ~/Work/catalog_api/
+    panes:
+      - shell_command:
+          - nix develop .
+          - setsid -f rust-rover . > /dev/null 2>&1 < /dev/null
+          - cargo run
+
+  - window_name: git
+    options:
+      automatic-rename: off
+      allow-rename: off
+    start_directory: ~/Work/catalog_api/
+    panes:
+      - shell_command:
+          - lazygit

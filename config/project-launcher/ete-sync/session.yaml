@@ -2,10 +2,13 @@ session_name: ete-sync
 start_directory: ~/Work/ete-sync-heroku-docker/
 
 windows:
+  - window_name: git
+    start_directory: ~/Work/ete-sync-heroku-docker/projects/ete-sync-heroku/
+    panes:
+      - shell_command:
+          - lazygit
+
   - window_name: sync
-    options:
-      automatic-rename: off
-      allow-rename: off
     start_directory: ~/Work/ete-sync-heroku-docker/projects/
     panes:
       - shell_command:
@@ -13,4 +16,13 @@ windows:
           - cd ./ete-sync-heroku
           - source .venv/bin/activate
           - setsid -f pycharm . > /dev/null 2>&1 < /dev/null
-          - lazygit
+          - python manage.py runserver 0.0.0.0:8000
+
+  - window_name: catalog
+    start_directory: ~/Work/ete-sync-heroku-docker/projects/
+    panes:
+      - shell_command:
+          - nix develop ./nix
+          - cd ./ete-sync-heroku
+          - source .venv/bin/activate
+          - python manage.py runserver --settings=catalogapi.settings 0.0.0.0:7011
