@@ -171,6 +171,8 @@ binds {
 
     Mod+M { spawn-sh "nirius focus --title='Apple Music'"; }
     Mod+D { spawn-sh "nirius focus --app-id=discord"; }
+    Mod+Shift+Period { spawn-sh "dolphin"; }
+
     Mod+Shift+O { spawn-sh "~/.config/project-launcher/launcher.py"; }
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
