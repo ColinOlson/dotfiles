@@ -4,44 +4,55 @@
   description = "Colin's Nixos config";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # Linux / NixOS
+    nixpkgs-linux.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-linux.url = "github:nix-community/home-manager/master";
+    home-manager-linux.inputs.nixpkgs.follows = "nixpkgs-linux";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-
-    noctalia = {
+    noctalia-linux = {
       url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-linux";
     };
+
+    # macOS / nix-darwin
+    nixpkgs-darwin.url = "github:nixos/nixpkgs?ref=nixpkgs-25.11-darwin";
+
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+
+    home-manager-darwin.url = "github:nix-community/home-manager/release-25.11";
+    home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+
   };
 
   outputs =
     {
-      nixpkgs,
-      home-manager,
+      nixpkgs-linux,
+      home-manager-linux,
+      noctalia-linux,
+
+      nixpkgs-darwin,
       nix-darwin,
-      noctalia,
+      home-manager-darwin,
       ...
     }:
     let
       mkPkgs =
-        system:
-        import nixpkgs {
+        system: packs:
+        import packs {
           inherit system;
           config.allowUnfree = true;
         };
 
       mkNixosHost =
         hostname:
-        nixpkgs.lib.nixosSystem {
+        nixpkgs-linux.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit hostname;
           };
-          modules = [ ./systems/linux.nix ];
+          modules = [ ./systems/linux/configuration.nix ];
         };
       mkDarwinHost =
         {
@@ -52,14 +63,16 @@
           system = "aarch64-darwin";
           specialArgs = { inherit hostname; };
           modules = [
-            ./systems/darwin.nix
-
-            home-manager.darwinModules.home-manager
+            ./systems/darwin/configuration.nix
+            home-manager-darwin.darwinModules.home-manager
             {
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.${username} = import ./home.nix;
+                users.${username} = {
+                  imports = [ ./modules/home-common.nix ];
+                  home.homeDirectory = nixpkgs-darwin.lib.mkForce /Users/colino;
+                };
               };
             }
           ];
@@ -67,12 +80,15 @@
       mkHome =
         {
           system,
+          packs,
+          home,
           username,
+          extraModules ? [ ],
           extraArgs ? { },
         }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = mkPkgs system;
-          modules = [ ./home.nix ];
+        home.lib.homeManagerConfiguration {
+          pkgs = mkPkgs system packs;
+          modules = [ ./modules/home-common.nix ] ++ extraModules;
           extraSpecialArgs = extraArgs;
         };
     in
@@ -87,13 +103,21 @@
 
       homeConfigurations.colino-linux = mkHome {
         system = "x86_64-linux";
+        packs = nixpkgs-linux;
+        home = home-manager-linux;
         username = "colino";
-        extraArgs = { inherit noctalia; };
+        extraModules = [ ./systems/linux/home.nix ];
+        extraArgs = {
+          noctalia = noctalia-linux;
+        };
       };
 
       homeConfigurations.colino-darwin = mkHome {
         system = "aarch64-darwin";
+        packs = nixpkgs-darwin;
+        home = home-manager-darwin;
         username = "colino";
+        extraModules = [ ./systems/darwin/home.nix ];
         extraArgs = { };
       };
     };

@@ -3,13 +3,13 @@
 {
   config,
   pkgs,
-  noctalia,
+  noctalia ? null,
   ...
 }:
 
 {
   imports = [
-    noctalia.homeModules.default
+    # Shared imports
   ];
 
   home = {
@@ -22,48 +22,23 @@
       omnisharp-roslyn
       pyright
       rust-analyzer
-      statix # Nix static analyzer? Shuts vim up
+      statix
       zsh-powerlevel10k
     ];
 
     file = {
-      ".p10k.zsh".source = ./config/p10k.zsh;
-      "bin".source = ./bin;
-      ".ideavimrc".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/ideavimrc";
+      ".p10k.zsh".source = ../config/p10k.zsh;
+      "bin".source = ../bin;
+      ".ideavimrc".source = config.lib.file.mkOutOfStoreSymlink ../config/ideavimrc;
     };
 
     sessionVariables = {
     };
   };
 
-  services.swayidle = {
-    enable = true;
-    timeouts = [
-      {
-        timeout = 600;
-        command = "/home/colino/.nix-profile/bin/noctalia-shell ipc call lockScreen lock";
-      }
-      {
-        timeout = 630;
-        command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
-      }
-    ];
-    events.after-resume = "${pkgs.niri}/bin/niri msg action power-on-monitors";
-  };
-
-  services.espanso = {
-    enable = true;
-    package = pkgs.espanso-wayland;
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   programs = {
-    noctalia-shell = {
-      enable = true;
-    };
-
     keepassxc.enable = true;
 
     bash.enable = true;
@@ -127,7 +102,7 @@
         pkgs.tmuxPlugins.vim-tmux-navigator
         pkgs.tmuxPlugins.catppuccin
       ];
-      extraConfig = builtins.readFile ./config/tmux.conf;
+      extraConfig = builtins.readFile ../config/tmux.conf;
     };
 
     neovim = {
@@ -162,10 +137,7 @@
 
   xdg = {
     configFile = {
-      "niri/config.kdl".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/niri/config.kdl";
-      nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
-      project-launcher.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/project-launcher";
+      nvim.source = config.lib.file.mkOutOfStoreSymlink ../config/nvim;
     };
   };
 }
