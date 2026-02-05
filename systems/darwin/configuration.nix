@@ -27,6 +27,13 @@ in
     "flakes"
   ];
 
+  homebrew = {
+    enable = true;
+    taps = [ "homebrew/cask" ];
+    onActivation.cleanup = "zap";
+    onActivation.autoUpdate = true;
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   fonts.packages = with pkgs; [

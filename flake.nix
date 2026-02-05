@@ -24,6 +24,16 @@
     home-manager-darwin.url = "github:nix-community/home-manager/release-25.11";
     home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
+    nix-homebrew-darwin.url = "github:zhaofengli/nix-homebrew";
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
   };
 
   outputs =
@@ -35,6 +45,9 @@
       nixpkgs-darwin,
       nix-darwin,
       home-manager-darwin,
+      nix-homebrew-darwin,
+      homebrew-core,
+      homebrew-cask,
       ...
     }:
     let
@@ -64,6 +77,7 @@
           specialArgs = { inherit hostname; };
           modules = [
             ./systems/darwin/configuration.nix
+
             home-manager-darwin.darwinModules.home-manager
             {
               home-manager = {
@@ -75,6 +89,21 @@
                 };
               };
             }
+
+            nix-homebrew-darwin.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                enable = true;
+                enableRosetta = true;
+                user = "colino";
+                taps = {
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                };
+                mutableTaps = false;
+              };
+            }
+
           ];
         };
       mkHome =
