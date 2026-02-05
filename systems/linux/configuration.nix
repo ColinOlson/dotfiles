@@ -13,7 +13,7 @@
   ];
 
   imports = [
-    ../machines/${hostname}/hardware-configuration.nix
+    ../../machines/${hostname}/hardware-configuration.nix
     ./services.nix
     ../../modules/systemPackagesCommon.nix
     ./systemPackages.nix
@@ -25,6 +25,10 @@
     # Use latest kernel.
     kernelPackages = pkgs.linuxPackages_latest;
   };
+
+  programs.zsh.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
 
   hardware.bluetooth.enable = true;
 

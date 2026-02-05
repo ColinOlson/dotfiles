@@ -2,6 +2,7 @@
   config,
   pkgs,
   noctalia ? null,
+  ...
 }:
 {
   imports = [ noctalia.homeModules.default ];
