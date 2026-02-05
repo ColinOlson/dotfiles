@@ -65,5 +65,13 @@
     ];
   };
 
+  environment.pathsToLink = [
+    "/share/applications"
+    "/share/mime"
+  ];
+
+  environment.etc."xdg/menus/applications.menu".source =
+    "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
   system.stateVersion = "25.11";
 }
