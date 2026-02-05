@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -14,17 +13,21 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci"
-    "ahci"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  boot = {
+    initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "ahci"
+      "usb_storage"
+      "usbhid"
+      "sd_mod"
+    ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-amd" ];
+    extraModulePackages = [ ];
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/1162d6b3-963d-4953-b81d-374b8cf8556a";
@@ -44,21 +47,23 @@
     { device = "/dev/disk/by-uuid/bc3df0ae-880e-4d2d-8740-8169f5b8a6d9"; }
   ];
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.nvidia = {
-    open = false;
-    modesetting.enable = true;
-    powerManagement = {
-      enable = false;
-      finegrained = false;
+  hardware = {
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+    graphics.enable = true;
+
+    nvidia = {
+      open = false;
+      modesetting.enable = true;
+      powerManagement = {
+        enable = false;
+        finegrained = false;
+      };
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  hardware.graphics.enable = true;
 }
