@@ -14,8 +14,9 @@
 
   imports = [
     ../machines/${hostname}/hardware-configuration.nix
-    ../modules/linuxServices.nix
-    ../modules/systemPackages.nix
+    ./services.nix
+    ../../modules/systemPackagesCommon.nix
+    ./systemPackages.nix
   ];
 
   boot = {

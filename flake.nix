@@ -70,7 +70,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${username} = {
-                  imports = [ ./modules/home-common.nix ];
+                  imports = [ ./modules/homeCommon.nix ];
                   home.homeDirectory = nixpkgs-darwin.lib.mkForce /Users/colino;
                 };
               };
@@ -88,7 +88,7 @@
         }:
         home.lib.homeManagerConfiguration {
           pkgs = mkPkgs system packs;
-          modules = [ ./modules/home-common.nix ] ++ extraModules;
+          modules = [ ./modules/homeCommon.nix ] ++ extraModules;
           extraSpecialArgs = extraArgs;
         };
     in

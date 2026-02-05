@@ -3,13 +3,11 @@
 {
   config,
   pkgs,
-  noctalia ? null,
   ...
 }:
 
 {
   imports = [
-    # Shared imports
   ];
 
   home = {
@@ -29,14 +27,13 @@
     file = {
       ".p10k.zsh".source = ../config/p10k.zsh;
       "bin".source = ../bin;
-      ".ideavimrc".source = config.lib.file.mkOutOfStoreSymlink ../config/ideavimrc;
+      ".ideavimrc".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/ideavimrc";
     };
 
     sessionVariables = {
     };
   };
-
-  nixpkgs.config.allowUnfree = true;
 
   programs = {
     keepassxc.enable = true;
@@ -137,7 +134,7 @@
 
   xdg = {
     configFile = {
-      nvim.source = config.lib.file.mkOutOfStoreSymlink ../config/nvim;
+      nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
     };
   };
 }
