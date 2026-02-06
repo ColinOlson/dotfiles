@@ -40,6 +40,10 @@ in
     nerd-fonts.meslo-lg
   ];
 
+  environment.etc."hosts".text = ''
+    127.0.0.1 localhost sql.cartanium.docker elastic.cartanium.docker
+  '';
+
   # Optional but nice defaults — completely safe
   system.defaults = {
     NSGlobalDomain = {

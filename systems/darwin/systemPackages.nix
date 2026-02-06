@@ -8,6 +8,7 @@
   homebrew.casks = [
     "firefox"
     "google-drive"
+    "orbstack"
   ];
 
   homebrew.brews = [
