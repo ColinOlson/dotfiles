@@ -5,49 +5,20 @@
 
   inputs = {
     # Linux / NixOS
-    nixpkgs-linux.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    home-manager-linux.url = "github:nix-community/home-manager/master";
-    home-manager-linux.inputs.nixpkgs.follows = "nixpkgs-linux";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    noctalia-linux = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs-linux";
-    };
-
-    # macOS / nix-darwin
-    nixpkgs-darwin.url = "github:nixos/nixpkgs?ref=nixpkgs-25.11-darwin";
-
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
-
-    home-manager-darwin.url = "github:nix-community/home-manager/release-25.11";
-    home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
-
-    nix-homebrew-darwin.url = "github:zhaofengli/nix-homebrew";
-
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
+    noctalia.url = "github:noctalia-dev/noctalia-shell";
+    noctalia.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     {
-      nixpkgs-linux,
-      home-manager-linux,
-      noctalia-linux,
-
-      nixpkgs-darwin,
-      nix-darwin,
-      home-manager-darwin,
-      nix-homebrew-darwin,
-      homebrew-core,
-      homebrew-cask,
+      nixpkgs,
+      home-manager,
+      noctalia,
       ...
     }:
     let
@@ -60,51 +31,12 @@
 
       mkNixosHost =
         hostname:
-        nixpkgs-linux.lib.nixosSystem {
+        nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit hostname;
           };
           modules = [ ./systems/linux/configuration.nix ];
-        };
-      mkDarwinHost =
-        {
-          hostname,
-          username,
-        }:
-        nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = { inherit hostname; };
-          modules = [
-            ./systems/darwin/configuration.nix
-
-            home-manager-darwin.darwinModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${username} = {
-                  imports = [ ./modules/homeCommon.nix ];
-                  home.homeDirectory = nixpkgs-darwin.lib.mkForce /Users/colino;
-                };
-              };
-            }
-
-            nix-homebrew-darwin.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = true;
-                user = "colino";
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                };
-                mutableTaps = false;
-              };
-            }
-
-          ];
         };
       mkHome =
         {
@@ -125,29 +57,15 @@
       nixosConfigurations."nixos-lappy" = mkNixosHost "nixos-lappy";
       nixosConfigurations."nixos-desktop" = mkNixosHost "nixos-desktop";
 
-      darwinConfigurations."macos-lappy-pro" = mkDarwinHost {
-        hostname = "macos-lappy-pro";
-        username = "colino";
-      };
-
-      homeConfigurations.colino-linux = mkHome {
+      homeConfigurations.colino = mkHome {
         system = "x86_64-linux";
-        packs = nixpkgs-linux;
-        home = home-manager-linux;
+        packs = nixpkgs;
+        home = home-manager;
         username = "colino";
         extraModules = [ ./systems/linux/home.nix ];
         extraArgs = {
-          noctalia = noctalia-linux;
+          inherit noctalia;
         };
-      };
-
-      homeConfigurations.colino-darwin = mkHome {
-        system = "aarch64-darwin";
-        packs = nixpkgs-darwin;
-        home = home-manager-darwin;
-        username = "colino";
-        extraModules = [ ./systems/darwin/home.nix ];
-        extraArgs = { };
       };
     };
 }
