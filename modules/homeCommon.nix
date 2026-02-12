@@ -26,7 +26,6 @@
 
     file = {
       ".p10k.zsh".source = ../config/p10k.zsh;
-      "bin".source = ../bin;
       ".ideavimrc".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/ideavimrc";
     };
@@ -89,6 +88,8 @@
 
         # If you have a p10k config file, load it
         [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+        export PATH="$HOME/bin:$PATH"
       '';
     };
 

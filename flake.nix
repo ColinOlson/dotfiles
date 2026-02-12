@@ -16,6 +16,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       home-manager,
       noctalia,
@@ -27,6 +28,7 @@
         import packs {
           inherit system;
           config.allowUnfree = true;
+          overlays = [ self.overlays.default ];
         };
 
       mkNixosHost =
@@ -36,7 +38,12 @@
           specialArgs = {
             inherit hostname;
           };
-          modules = [ ./systems/linux/configuration.nix ];
+          modules = [
+            (_: {
+              nixpkgs.overlays = [ self.overlays.default ];
+            })
+            ./systems/linux/configuration.nix
+          ];
         };
       mkHome =
         {
@@ -54,6 +61,10 @@
         };
     in
     {
+      overlays.default = final: prev: {
+        # crosspaste = final.callPackage ./pkgs/crosspaste-appimage { };
+      };
+
       nixosConfigurations."nixos-lappy" = mkNixosHost "nixos-lappy";
       nixosConfigurations."nixos-desktop" = mkNixosHost "nixos-desktop";
 

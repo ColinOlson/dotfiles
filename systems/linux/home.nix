@@ -40,4 +40,6 @@
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/niri/config.kdl";
     };
   };
+
+  home.file.bin.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/bin";
 }

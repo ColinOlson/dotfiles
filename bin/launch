@@ -1,0 +1,12 @@
+#!/run/current-system/sw/bin/bash
+set -eu
+
+if [ "$#" -lt 1 ]; then
+  echo "usage: $(basename "$0") <command> [args...]" >&2
+  exit 2
+fi
+
+# Start a new session and fork so it detaches from the terminal.
+# Redirect stdio so the child can’t keep your terminal busy.
+setsid -f -- "$@" </dev/null >/dev/null 2>&1 || exit $?
+
