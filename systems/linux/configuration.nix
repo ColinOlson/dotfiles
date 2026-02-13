@@ -58,6 +58,18 @@
     rtkit.enable = true;
   };
 
+  security.sudo.extraRules = [
+    {
+      users = [ "colino" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   users.groups = {
     plugdev = { };
   };
