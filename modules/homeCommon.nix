@@ -17,6 +17,7 @@
 
     packages = with pkgs; [
       gitflow
+      localsend
       omnisharp-roslyn
       pyright
       rust-analyzer

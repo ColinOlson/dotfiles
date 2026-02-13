@@ -41,6 +41,11 @@
         "elastic.cartanium.docker"
       ];
     };
+
+    firewall = {
+      allowedTCPPorts = [ 53317 ];
+      allowedUDPPorts = [ 53317 ];
+    };
   };
 
   time.timeZone = "America/Vancouver";
