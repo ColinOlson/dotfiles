@@ -36,6 +36,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    bat
     cifs-utils
     davinci-resolve
     dbus
@@ -45,12 +46,14 @@
     fuzzel
     libreoffice
     lutris
+    meld
     nirius
     playerctl
     quickshell
     rclone
     remmina
     rustdesk
+    sshfs
     swayidle
     thunderbird
     ungoogled-chromium

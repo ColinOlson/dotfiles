@@ -49,14 +49,14 @@
       syntaxHighlighting.enable = true;
 
       shellAliases = {
-        "ls" = "eza --icons -l";
+        "ls" = "eza --icons -l --color=always";
         "ll" = "ls";
         "l" = "ll";
         "la" = "l -a";
 
-        "vrc" = "zsh -c 'cd ~/Dotfiles; vi configuration.nix'";
+        "vrc" = "zsh -c 'cd ~/Dotfiles; vi systems/linux/configuration.nix'";
         "src" = "zsh -c '~/bin/nrs' && source ~/.zshrc";
-        "vrh" = "zsh -c 'cd ~/Dotfiles; vi home.nix'";
+        "vrh" = "zsh -c 'cd ~/Dotfiles; vi modules/homeCommon.nix'";
         "srh" = "zsh -c 'cd ~/Dotfiles; home-manager switch --flake .' && source ~/.zshrc";
         "rc" = "source ~/.zshrc";
 
@@ -89,6 +89,9 @@
 
         # If you have a p10k config file, load it
         [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+        export LESS="-R --mouse --wheel-lines=3"
+        export PAGER="less"
 
         export PATH="$HOME/bin:$PATH"
       '';
