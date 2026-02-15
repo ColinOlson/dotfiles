@@ -52,8 +52,6 @@
       enable = true;
     };
 
-    keepassxc.enable = true;
-
     bash.enable = true;
 
     zsh = {
@@ -106,6 +104,14 @@
         # If you have a p10k config file, load it
         [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
+        function ww() {
+            local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+            command yazi "$@" --cwd-file="$tmp"
+            IFS= read -r -d "" cwd < "$tmp"
+            [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+            rm -f -- "$tmp"
+        }
+
         export LESS="-R --mouse --wheel-lines=3"
         export PAGER="less"
 
@@ -148,6 +154,35 @@
           v = "!gitk --all";
         };
       };
+
+    };
+
+    yazi = {
+      enable = true;
+      enableZshIntegration = true;
+
+      keymap = {
+        mgr.prepend_keymap = [
+          {
+            on = [
+              "g"
+              "w"
+            ];
+            run = "cd ~/Work";
+            desc = "Go Work";
+          }
+
+          {
+            on = [
+              "g"
+              "d"
+            ];
+            run = "cd ~/Dotfiles";
+            desc = "Go Dotfiles";
+          }
+        ];
+      };
+
     };
 
     home-manager.enable = true;
