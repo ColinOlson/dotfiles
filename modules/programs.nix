@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   programs = {
     nix-ld = {
@@ -11,6 +10,8 @@
         libffi
       ];
     };
+
+    zsh.enable = true;
 
     niri.enable = true;
 
@@ -34,32 +35,4 @@
   virtualisation.docker = {
     enable = true;
   };
-
-  environment.systemPackages = with pkgs; [
-    bat
-    cifs-utils
-    davinci-resolve
-    dbus
-    docker
-    feh
-    filezilla
-    fuzzel
-    libreoffice
-    lutris
-    meld
-    nirius
-    playerctl
-    quickshell
-    rclone
-    remmina
-    rustdesk
-    sshfs
-    swayidle
-    thunderbird
-    ungoogled-chromium
-    vlc
-    vulkan-tools
-    wofi
-    xwayland-satellite
-  ];
 }

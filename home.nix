@@ -1,19 +1,24 @@
-# vim: set ts=2 sw=2:
-
 {
   config,
+  noctalia ? null,
   pkgs,
   ...
 }:
-
 {
   imports = [
+    noctalia.homeModules.default
   ];
 
   home = {
     username = "colino";
     homeDirectory = "/home/colino";
     stateVersion = "25.11";
+
+    file = {
+      ".p10k.zsh".source = ./config/p10k.zsh;
+      ".ideavimrc".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/ideavimrc";
+    };
 
     packages = with pkgs; [
       gitflow
@@ -25,17 +30,28 @@
       zsh-powerlevel10k
     ];
 
-    file = {
-      ".p10k.zsh".source = ../config/p10k.zsh;
-      ".ideavimrc".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/ideavimrc";
+    sessionVariables = {
     };
 
-    sessionVariables = {
+    file.bin.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/bin";
+  };
+
+  xdg = {
+    configFile = {
+      project-launcher.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/project-launcher";
+
+      "niri/config.kdl".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/niri/config.kdl";
+
+      nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
     };
   };
 
   programs = {
+    noctalia-shell = {
+      enable = true;
+    };
+
     keepassxc.enable = true;
 
     bash.enable = true;
@@ -104,7 +120,7 @@
         pkgs.tmuxPlugins.vim-tmux-navigator
         pkgs.tmuxPlugins.catppuccin
       ];
-      extraConfig = builtins.readFile ../config/tmux.conf;
+      extraConfig = builtins.readFile ./config/tmux.conf;
     };
 
     neovim = {
@@ -137,9 +153,23 @@
     home-manager.enable = true;
   };
 
-  xdg = {
-    configFile = {
-      nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
-    };
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      {
+        timeout = 600;
+        command = "/home/colino/.nix-profile/bin/noctalia-shell ipc call lockScreen lock";
+      }
+      {
+        timeout = 630;
+        command = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+      }
+    ];
+    events.after-resume = "${pkgs.niri}/bin/niri msg action power-on-monitors";
+  };
+
+  services.espanso = {
+    enable = true;
+    package = pkgs.espanso-wayland;
   };
 }

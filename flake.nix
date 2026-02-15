@@ -42,7 +42,7 @@
             (_: {
               nixpkgs.overlays = [ self.overlays.default ];
             })
-            ./systems/linux/configuration.nix
+            ./configuration.nix
           ];
         };
       mkHome =
@@ -51,12 +51,11 @@
           packs,
           home,
           username,
-          extraModules ? [ ],
           extraArgs ? { },
         }:
         home.lib.homeManagerConfiguration {
           pkgs = mkPkgs system packs;
-          modules = [ ./modules/homeCommon.nix ] ++ extraModules;
+          modules = [ ./home.nix ];
           extraSpecialArgs = extraArgs;
         };
     in
@@ -73,7 +72,6 @@
         packs = nixpkgs;
         home = home-manager;
         username = "colino";
-        extraModules = [ ./systems/linux/home.nix ];
         extraArgs = {
           inherit noctalia;
         };
