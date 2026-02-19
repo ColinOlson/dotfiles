@@ -63,10 +63,11 @@
       syntaxHighlighting.enable = true;
 
       shellAliases = {
-        "ls" = "eza --icons -l --color=always";
+        "ls" = "eza --icons --long --header --color=always";
+        "lss" = "ls --total-size --sort=size";
         "ll" = "ls";
         "l" = "ll";
-        "la" = "l -a";
+        "la" = "l -A";
 
         "vrc" = "zsh -c 'cd ~/Dotfiles; vi systems/linux/configuration.nix'";
         "src" = "zsh -c '~/bin/nrs' && source ~/.zshrc";
