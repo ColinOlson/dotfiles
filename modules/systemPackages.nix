@@ -21,6 +21,7 @@ in
     bat
     bitwarden-desktop
     brave
+    bruno
     btop
     cifs-utils
     clang
