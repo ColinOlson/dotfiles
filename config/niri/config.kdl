@@ -28,15 +28,6 @@ input {
     }
 }
 
-// `niri msg outputs`
-// https://yalter.github.io/niri/Configuration:-Outputs
-output "eDP-1" {
-    mode "3840x2160@60"
-    scale 2
-    transform "normal"
-    position x=0 y=0
-}
-
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
@@ -44,13 +35,17 @@ layout {
 
     center-focused-column "never"
 
+    always-center-single-column
+
+    empty-workspace-above-first
+
     preset-column-widths {
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
     }
 
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.666667; }
 
     // You can change how the focus ring looks.
     focus-ring {
