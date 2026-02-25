@@ -52,6 +52,7 @@ in
     jetbrains.webstorm
     jq
     keepassxc
+    keymapp
     kitty
     lazydocker
     lazygit
@@ -59,6 +60,7 @@ in
     lua-language-server
     lutris
     meld
+    moonlight-qt
     myPython
     myYarn
     neovim
