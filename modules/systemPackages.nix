@@ -70,6 +70,7 @@ in
     nodejs_20
     oxker
     pkg-config
+    pika-backup
     playerctl
     postman
     quickshell
