@@ -45,6 +45,7 @@ in
     glib
     gnumake
     htop
+    jetbrains.clion
     jetbrains.datagrip
     jetbrains.pycharm
     jetbrains.rider
@@ -59,6 +60,9 @@ in
     libreoffice
     lua-language-server
     lutris
+    man
+    man-pages
+    man-pages-posix
     meld
     moonlight-qt
     myPython
@@ -92,6 +96,7 @@ in
     vlc
     vulkan-tools
     wget
+    wireshark
     wofi
     xwayland-satellite
   ];

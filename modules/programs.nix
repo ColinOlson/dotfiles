@@ -30,6 +30,11 @@
     steam = {
       enable = true;
     };
+
+    wireshark = {
+      enable = true;
+      dumpcap.enable = true;
+    };
   };
 
   virtualisation.docker = {

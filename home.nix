@@ -69,9 +69,10 @@
         "l" = "ll";
         "la" = "l -A";
 
-        "vrc" = "zsh -c 'cd ~/Dotfiles; vi systems/linux/configuration.nix'";
+        "vrc" = "zsh -c 'cd ~/Dotfiles; vi configuration.nix'";
+        "vrcp" = "zsh -c 'cd ~/Dotfiles; vi modules/systemPackages.nix'";
         "src" = "zsh -c '~/bin/nrs' && source ~/.zshrc";
-        "vrh" = "zsh -c 'cd ~/Dotfiles; vi modules/homeCommon.nix'";
+        "vrh" = "zsh -c 'cd ~/Dotfiles; vi home.nix'";
         "srh" = "zsh -c 'cd ~/Dotfiles; home-manager switch --flake .' && source ~/.zshrc";
         "rc" = "source ~/.zshrc";
 

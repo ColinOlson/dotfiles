@@ -70,6 +70,7 @@
 
   users.groups = {
     plugdev = { };
+    wireshark = { };
   };
 
   users.users.colino = {
@@ -82,6 +83,7 @@
       "docker"
       "input"
       "plugdev"
+      "wireshark"
     ];
   };
 
@@ -92,6 +94,12 @@
 
   environment.etc."xdg/menus/applications.menu".source =
     "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
+  documentation = {
+    enable = true;
+    man.enable = true;
+    man.generateCaches = true;
+  };
 
   system.stateVersion = "25.11";
 }
