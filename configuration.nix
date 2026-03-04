@@ -98,7 +98,7 @@
   documentation = {
     enable = true;
     man.enable = true;
-    man.generateCaches = true;
+    man.cache.enable = true;
   };
 
   system.stateVersion = "25.11";
