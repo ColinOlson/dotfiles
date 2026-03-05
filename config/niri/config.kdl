@@ -159,6 +159,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Run launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
     Mod+Semicolon hotkey-overlay-title="Run an Browser: brave" { spawn "brave"; }
+    Mod+Shift+Semicolon hotkey-overlay-title="Run an Browser: brave incognito" { spawn-sh "brave --incognito"; }
 
     Mod+P { spawn-sh "nirius focus --app-id=jetbrains-pycharm"; }
     Mod+G { spawn-sh "nirius focus --app-id=jetbrains-datagrip"; }

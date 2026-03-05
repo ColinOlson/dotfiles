@@ -152,8 +152,8 @@
           co = "checkout";
           st = "status";
 
-          g = "!git gui";
-          v = "!gitk --all";
+          g = "!git gui &";
+          v = "!gitk --all &";
         };
       };
 
