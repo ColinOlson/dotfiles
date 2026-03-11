@@ -82,7 +82,6 @@ in
     rclone
     remmina
     ripgrep
-    rustdesk
     rustup
     sshfs
     sshs
