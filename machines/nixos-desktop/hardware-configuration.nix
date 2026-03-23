@@ -43,6 +43,16 @@
     ];
   };
 
+  fileSystems."/home/colino/Mounts/FastBulk" = {
+    device = "/dev/disk/by-uuid/127d3f94-6c73-445f-96eb-a1b2358834e3";
+    fsType = "btrfs";
+    options = [
+
+      "defaults"
+      "nofail"
+    ];
+  };
+
   swapDevices = [
     { device = "/dev/disk/by-uuid/bc3df0ae-880e-4d2d-8740-8169f5b8a6d9"; }
   ];

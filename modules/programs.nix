@@ -27,6 +27,10 @@
       capSysNice = false; # recommended for better scheduling/latency
     };
 
+    gnome-disks = {
+      enable = true;
+    };
+
     steam = {
       enable = true;
     };

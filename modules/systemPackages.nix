@@ -20,11 +20,14 @@ in
     alacritty
     bat
     bitwarden-desktop
+    bluez
+    bluez-tools
     brave
     bruno
     btop
     cifs-utils
     clang
+    claude-code
     curl
     davinci-resolve
     dbus
@@ -38,12 +41,14 @@ in
     fastfetch
     fd
     feh
+    ffmpeg
     filezilla
     fuzzel
     fzf
     gcc
     glib
     gnumake
+    gnome-disk-utility
     htop
     jetbrains.clion
     jetbrains.datagrip
@@ -52,12 +57,14 @@ in
     jetbrains.rust-rover
     jetbrains.webstorm
     jq
+    kdePackages.partitionmanager
     keepassxc
     keymapp
     kitty
     lazydocker
     lazygit
     libreoffice
+    lmstudio
     lua-language-server
     lutris
     man
@@ -77,8 +84,10 @@ in
     pika-backup
     playerctl
     postman
+    pulseaudio
     quickshell
     qutebrowser
+    qwen-code
     rclone
     remmina
     ripgrep
