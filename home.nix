@@ -121,7 +121,8 @@
 
         export ANTHROPIC_AUTH_TOKEN="ollama"
         export ANTHROPIC_API_KEY=""
-        export ANTHROPIC_BASE_URL="http://10.0.0.203:1234" 
+        # export ANTHROPIC_BASE_URL="http://10.0.0.203:1234" 
+        export ANTHROPIC_BASE_URL="http://127.0.0.1:1234" 
       '';
     };
 
