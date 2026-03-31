@@ -1,0 +1,35 @@
+Tue Mar 31 11:09:15 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.18             Driver Version: 580.126.18     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce GTX 970         Off |   00000000:09:00.0  On |                  N/A |
+|  6%   64C    P2             52W /  201W |     700MiB /   4096MiB |      2%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            1814      G   ...8-kwallet-6.23.0/bin/ksecretd          2MiB |
+|    0   N/A  N/A            2128      G   ...r-kwin-6.6.2/bin/kwin_wayland         35MiB |
+|    0   N/A  N/A            2806      G   ...urrent-system/sw/bin/Xwayland          3MiB |
+|    0   N/A  N/A            2882      G   ...workspace-6.6.2/bin/ksmserver          2MiB |
+|    0   N/A  N/A            2885      G   ...ca72lil-kded-6.23.0/bin/kded6          2MiB |
+|    0   N/A  N/A            2915      G   ...rkspace-6.6.2/bin/plasmashell        282MiB |
+|    0   N/A  N/A            2955      G   ...sma-desktop-6.6.2/bin/kaccess          2MiB |
+|    0   N/A  N/A            2956      G   ...it-kde-authentication-agent-1          2MiB |
+|    0   N/A  N/A            3170      G   ...nix-profile/bin/localsend_app         24MiB |
+|    0   N/A  N/A            3188    C+G   ...-2025.924.154138/bin/sunshine         63MiB |
+|    0   N/A  N/A            3196      G   ....6.2/libexec/DiscoverNotifier          2MiB |
+|    0   N/A  N/A            3324      G   ...ibexec/xdg-desktop-portal-kde          2MiB |
+|    0   N/A  N/A            3340      G   ...-kwallet-6.23.0/bin/kwalletd6          2MiB |
+|    0   N/A  N/A            3713      G   ...4.0/libexec/electron/electron          2MiB |
+|    0   N/A  N/A            5302      G   /run/current-system/sw/bin/kitty        132MiB |
++-----------------------------------------------------------------------------------------+
+Linux nixos-desktop 6.19.5 #1-NixOS SMP PREEMPT_DYNAMIC Fri Feb 27 21:05:57 UTC 2026 x86_64 GNU/Linux
