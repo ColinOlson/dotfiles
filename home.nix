@@ -81,6 +81,9 @@
 
         "dc" = "docker compose";
         "nd" = "nix develop .";
+
+        "codex-clean" = "env -u PYTHONHOME -u PYTHONPATH -u LD_LIBRARY_PATH codex";
+        "claude-clean" = "env -u PYTHONHOME -u PYTHONPATH -u LD_LIBRARY_PATH claude";
       };
 
       oh-my-zsh = {
@@ -112,6 +115,10 @@
             IFS= read -r -d "" cwd < "$tmp"
             [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
             rm -f -- "$tmp"
+        }
+
+        killf() {
+            ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs -r kill -9
         }
 
         export LESS="-R --mouse --wheel-lines=3"

@@ -1,13 +1,7 @@
 { pkgs, ... }:
 
 let
-  myPython = pkgs.python3.withPackages (
-    ps: with ps; [
-      pydbus
-      pygobject3
-    ]
-  );
-  myYarn = pkgs.nodejs_20.pkgs.yarn.override {
+  myYarn = pkgs.yarn.override {
     nodejs = pkgs.nodejs_20;
   };
 in
@@ -73,7 +67,6 @@ in
     man-pages-posix
     meld
     moonlight-qt
-    myPython
     myYarn
     neovim
     nerd-fonts.meslo-lg
