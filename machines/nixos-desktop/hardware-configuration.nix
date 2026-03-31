@@ -4,6 +4,7 @@
 {
   config,
   lib,
+  pkgs,
   modulesPath,
   ...
 }:
@@ -16,6 +17,8 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   boot = {
+    # Pinned to 6.19 series to avoid accidental kernel upgrades.
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_19;
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
@@ -72,7 +75,14 @@
         finegrained = false;
       };
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "580.126.18";
+        sha256_64bit = "sha256-p3gbLhwtZcZYCRTHbnntRU0ClF34RxHAMwcKCSqatJ0=";
+        sha256_aarch64 = "sha256-pruxWQlLurymRL7PbR24NA6dNowwwX35p6j9mBIDcNs=";
+        openSha256 = "sha256-1Q2wuDdZ6KiA/2L3IDN4WXF8t63V/4+JfrFeADI1Cjg=";
+        settingsSha256 = "sha256-QMx4rUPEGp/8Mc+Bd8UmIet/Qr0GY8bnT/oDN8GAoEI=";
+        persistencedSha256 = "sha256-ZBfPZyQKW9SkVdJ5cy0cxGap2oc7kyYRDOeM0XyfHfI=";
+      };
     };
   };
 

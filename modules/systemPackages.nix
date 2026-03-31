@@ -86,6 +86,7 @@ in
     playerctl
     postman
     pulseaudio
+    python3
     quickshell
     qutebrowser
     qwen-code
