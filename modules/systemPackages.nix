@@ -28,6 +28,7 @@ in
     cifs-utils
     clang
     claude-code
+    codex
     curl
     davinci-resolve
     dbus
