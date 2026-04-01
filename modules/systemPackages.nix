@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 let
+  lazyjira = pkgs.callPackage ../pkgs/lazyjira { };
   myYarn = pkgs.yarn.override {
     nodejs = pkgs.nodejs_20;
   };
@@ -58,6 +59,7 @@ in
     kitty
     lazydocker
     lazygit
+    lazyjira
     libreoffice
     lmstudio
     lua-language-server
@@ -100,6 +102,7 @@ in
     vulkan-tools
     wget
     wireshark
+    wl-clipboard
     wofi
     xwayland-satellite
   ];

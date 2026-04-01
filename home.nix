@@ -44,6 +44,15 @@
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/niri/config.kdl";
 
       nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Dotfiles/config/nvim";
+
+      # Mask DrKonqi user units. The crash reporter is currently crashing in the
+      # notification path and can stall user-manager reloads during rebuilds.
+      "systemd/user/drkonqi-coredump-launcher.socket".source =
+        config.lib.file.mkOutOfStoreSymlink "/dev/null";
+      "systemd/user/drkonqi-coredump-launcher@.service".source =
+        config.lib.file.mkOutOfStoreSymlink "/dev/null";
+      "systemd/user/drkonqi-coredump-pickup.service".source =
+        config.lib.file.mkOutOfStoreSymlink "/dev/null";
     };
   };
 
@@ -84,6 +93,8 @@
 
         "codex-clean" = "env -u PYTHONHOME -u PYTHONPATH -u LD_LIBRARY_PATH codex";
         "claude-clean" = "env -u PYTHONHOME -u PYTHONPATH -u LD_LIBRARY_PATH claude";
+
+        "pbcopy" = "wl-copy -f";
       };
 
       oh-my-zsh = {
