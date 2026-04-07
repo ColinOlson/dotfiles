@@ -62,6 +62,7 @@
     {
       overlays.default = final: prev: {
         # crosspaste = final.callPackage ./pkgs/crosspaste-appimage { };
+        purple = final.callPackage ./pkgs/purple { };
       };
 
       nixosConfigurations."nixos-lappy" = mkNixosHost "nixos-lappy";

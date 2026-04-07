@@ -81,6 +81,7 @@ in
     playerctl
     postman
     pulseaudio
+    purple
     python3
     quickshell
     qutebrowser
