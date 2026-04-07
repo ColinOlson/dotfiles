@@ -43,8 +43,14 @@
     };
 
     firewall = {
-      allowedTCPPorts = [ 53317 ];
-      allowedUDPPorts = [ 53317 ];
+      allowedTCPPorts = [
+        53317
+        7783
+      ];
+      allowedUDPPorts = [
+        53317
+        7783
+      ];
     };
   };
 
