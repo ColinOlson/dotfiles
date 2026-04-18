@@ -17,6 +17,7 @@
     ./modules/programs.nix
     ./modules/services.nix
     ./modules/systemPackages.nix
+    ./modules/virtualisaton.nix
   ];
 
   boot = {
