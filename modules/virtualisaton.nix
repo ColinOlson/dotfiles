@@ -8,6 +8,7 @@
   users.users.colino.extraGroups = [
     "libvirtd"
     "kvm"
+    "video"
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
