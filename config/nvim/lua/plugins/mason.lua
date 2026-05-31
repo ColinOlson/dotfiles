@@ -15,6 +15,10 @@ return {
         rust_analyzer = {
           cmd = "rust-analyzer",
         },
+        nil_ls = {
+          enabled = vim.fn.executable("nil") == 1,
+          mason = false,
+        },
       },
     },
   },

@@ -4,10 +4,7 @@ return {
     dependencies = {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
-      "mlaursen/vim-react-snippets",
+      { "mlaursen/vim-react-snippets", opts = {} },
     },
-    opts = function()
-      require("vim-react-snippets").lazy_load()
-    end,
   },
 }

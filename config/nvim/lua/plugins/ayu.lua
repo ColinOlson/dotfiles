@@ -3,20 +3,23 @@ return {
     "Shatur/neovim-ayu",
     name = "ayu",
     opts = function(_, opts)
-      local colors = require("ayu.colors")
+      opts.overrides = function()
+        local colors = require("ayu.colors")
+        local bg = vim.g.neovide and colors.bg or "None"
 
-      opts.overrides = {
-        Normal = { bg = "None" },
-        NormalFloat = { bg = "None" },
-        ColorColumn = { bg = "None" },
-        SignColumn = { bg = "None" },
-        Folded = { bg = "None" },
-        FoldColumn = { bg = "None" },
-        CursorColumn = { bg = "None" },
-        VertSplit = { bg = "None" },
-        SnacksNormalNC = { bg = "None" },
-        SnacksPicker = { bg = "None" },
-      }
+        return {
+          Normal = { bg = bg },
+          NormalFloat = { bg = bg },
+          ColorColumn = { bg = bg },
+          SignColumn = { bg = bg },
+          Folded = { bg = bg },
+          FoldColumn = { bg = bg },
+          CursorColumn = { bg = bg },
+          VertSplit = { bg = bg },
+          SnacksNormalNC = { bg = bg },
+          SnacksPicker = { bg = bg },
+        }
+      end
     end,
   },
 
