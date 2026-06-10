@@ -1,3 +1,6 @@
+FZF_BIN="$(which fzf)"
+SED_BIN="$(which sed)"
+
 typeset -ga JUMP_ALIAS_FILES
 (( ${#JUMP_ALIAS_FILES[@]} )) || JUMP_ALIAS_FILES=("$HOME/.aliases.zsh")
 

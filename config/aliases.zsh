@@ -54,8 +54,9 @@ alias sync="cd ~/Work/ete-sync-heroku-docker/projects/ete-sync-heroku/"
 alias telemetry='cd ~/Work/telemetry'
 alias ui="cd ~/Work/ete-sync-heroku-docker/projects/buyete-sync-ui/"
 alias work='cd ~/Work'
-alias writeaway='cd ~/Work/writeaway'
+alias wa='cd ~/Work/writeaway'
 
+alias atsg-load='tmuxp load atsg'
 alias buyete-load='tmuxp load buyete'
 alias writeaway-load='tmuxp load writeaway'
 alias franses-load='tmuxp load franses'
