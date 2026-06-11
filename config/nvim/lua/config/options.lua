@@ -10,3 +10,5 @@ o.expandtab = true
 o.softtabstop = 4
 
 o.relativenumber = false
+
+vim.g.autoformat = false

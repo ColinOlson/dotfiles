@@ -5,6 +5,8 @@ alias ll="ls"
 alias l="ll"
 alias la="l -A"
 
+alias cd='z'
+
 alias nls="nslookup"
 
 alias vi=nvim
