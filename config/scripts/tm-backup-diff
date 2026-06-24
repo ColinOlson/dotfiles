@@ -1,0 +1,193 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'USAGE'
+Usage: tm-backup-diff [options]
+
+Compare the two most recent Time Machine backups visible to tmutil.
+
+Options:
+  --backup-mount PATH       Pass PATH to "tmutil listbackups -d PATH".
+                            Useful when a network Time Machine disk image is
+                            already mounted but tmutil does not pick it by default.
+  --no-mount                Do not pass -m to "tmutil listbackups".
+                            By default, this script asks tmutil to mount backup
+                            snapshots before returning their paths.
+  --depth N                 Limit traversal depth, passed to "tmutil compare -D N".
+  --ignore NAME             Ignore any path component named NAME. May be repeated.
+  --all-metadata            Compare all supported metadata, passed as -a.
+  --no-metadata             Skip metadata comparison, passed as -n.
+  --data-forks              Compare file data forks, passed as -d. This can be slow.
+  --sizes                   Compare file sizes, passed as -s.
+  --xml                     Print XML property list output, passed as -X.
+  --no-exclusions           Do not apply Time Machine exclusions, passed as -E.
+  --ignore-volume-identity  Ignore logical volume identity, passed as -U.
+  --print-paths             Print the selected backup paths without comparing.
+  -h, --help                Show this help.
+
+By default, tmutil compare uses its own default property set: -@gmstu.
+
+For SMB or encrypted Time Machine destinations, the backup image must be
+mounted and unlocked enough for "tmutil listbackups -m" to see backup snapshots.
+If macOS reports "Operation not permitted", grant Full Disk Access to the
+terminal app running this script and try again.
+USAGE
+}
+
+die() {
+  printf 'tm-backup-diff: %s\n' "$*" >&2
+  exit 1
+}
+
+privacy_hint() {
+  cat >&2 <<'HINT'
+
+macOS reported "Operation not permitted".
+Grant Full Disk Access to the terminal app running this script:
+System Settings -> Privacy & Security -> Full Disk Access.
+Then quit and reopen the terminal before retrying.
+HINT
+}
+
+network_backup_hint() {
+  cat >&2 <<'HINT'
+
+No Time Machine machine directory was visible.
+For encrypted SMB destinations, make sure the share is reachable and the
+Time Machine backup image can be mounted and unlocked. If the mounted backup
+volume is visible in Finder, retry with:
+
+  tm-backup-diff --backup-mount /Volumes/<backup-volume>
+HINT
+}
+
+list_opts=()
+compare_opts=()
+mount_backups=1
+print_paths=0
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --backup-mount)
+      [ "$#" -ge 2 ] || die "--backup-mount requires a path"
+      list_opts+=("-d" "$2")
+      shift 2
+      ;;
+    --no-mount)
+      mount_backups=0
+      shift
+      ;;
+    --depth)
+      [ "$#" -ge 2 ] || die "--depth requires a number"
+      compare_opts+=("-D" "$2")
+      shift 2
+      ;;
+    --ignore)
+      [ "$#" -ge 2 ] || die "--ignore requires a path component name"
+      compare_opts+=("-I" "$2")
+      shift 2
+      ;;
+    --all-metadata)
+      compare_opts+=("-a")
+      shift
+      ;;
+    --no-metadata)
+      compare_opts+=("-n")
+      shift
+      ;;
+    --data-forks)
+      compare_opts+=("-d")
+      shift
+      ;;
+    --sizes)
+      compare_opts+=("-s")
+      shift
+      ;;
+    --xml)
+      compare_opts+=("-X")
+      shift
+      ;;
+    --no-exclusions)
+      compare_opts+=("-E")
+      shift
+      ;;
+    --ignore-volume-identity)
+      compare_opts+=("-U")
+      shift
+      ;;
+    --print-paths)
+      print_paths=1
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      die "unknown option: $1"
+      ;;
+  esac
+done
+
+tmpdir=$(mktemp -d "${TMPDIR:-/tmp}/tm-backup-diff.XXXXXX")
+cleanup() {
+  rm -rf "$tmpdir"
+}
+trap cleanup EXIT
+
+backups_file="$tmpdir/backups"
+list_err="$tmpdir/listbackups.err"
+
+list_args=("${list_opts[@]}")
+if [ "$mount_backups" -eq 1 ]; then
+  list_args+=("-m")
+fi
+
+if ! tmutil listbackups "${list_args[@]}" >"$backups_file" 2>"$list_err"; then
+  cat "$list_err" >&2
+  if grep -qi 'Operation not permitted' "$list_err"; then
+    privacy_hint
+  fi
+  if grep -qi 'No machine directory found' "$list_err"; then
+    network_backup_hint
+  fi
+  exit 1
+fi
+
+backups=()
+while IFS= read -r backup_path; do
+  [ -n "$backup_path" ] || continue
+  backups+=("$backup_path")
+done <"$backups_file"
+
+backup_count=${#backups[@]}
+if [ "$backup_count" -lt 2 ]; then
+  cat >&2 <<'ERROR'
+tm-backup-diff: fewer than two Time Machine backups are visible to tmutil.
+
+For encrypted SMB destinations, make sure the Time Machine backup image is
+mounted and unlocked. You can also pass --backup-mount PATH if the mounted
+backup volume needs to be selected explicitly.
+ERROR
+  exit 1
+fi
+
+older_backup=${backups[$((backup_count - 2))]}
+newer_backup=${backups[$((backup_count - 1))]}
+
+printf 'Older backup: %s\n' "$older_backup" >&2
+printf 'Newer backup: %s\n' "$newer_backup" >&2
+
+if [ "$print_paths" -eq 1 ]; then
+  exit 0
+fi
+
+compare_err="$tmpdir/compare.err"
+if ! tmutil compare "${compare_opts[@]}" "$older_backup" "$newer_backup" 2>"$compare_err"; then
+  cat "$compare_err" >&2
+  if grep -qi 'Operation not permitted' "$compare_err"; then
+    privacy_hint
+  fi
+  exit 1
+fi

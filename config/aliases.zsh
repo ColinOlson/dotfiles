@@ -6,6 +6,7 @@ alias l="ll"
 alias la="l -A"
 
 alias cd='z'
+alias cat='bat'
 
 alias nls="nslookup"
 
