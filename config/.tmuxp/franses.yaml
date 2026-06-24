@@ -1,0 +1,11 @@
+session_name: franses
+windows:
+  - window_name: franses
+    start_directory: /Users/colino/Work/franses
+    panes:
+      - yarn start
+
+  - window_name: franses-server
+    start_directory: /Users/colino/Work/franses-server
+    panes:
+      - yarn start:live

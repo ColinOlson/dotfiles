@@ -1,0 +1,37 @@
+session_name: buyete
+windows:
+  - window_name: otel
+    start_directory: ~/Work/telemetry
+    panes:
+      - dc up
+
+  - window_name: cartanium
+    start_directory: /Users/colino/Work/cartanium-search-v3/projects/api/src/CartaniumSearch
+    panes:
+      - ./run.sh
+
+  - window_name: cart - admin
+    start_directory: /Users/colino/Work/cartanium-search-v3/projects/admin/src
+    panes:
+      - yarn run dev
+
+  - window_name: py - catalog
+    start_directory: /Users/colino/Work/ete-sync-heroku-docker/projects/ete-sync-heroku
+    panes:
+      - venv && pym-run-catalog
+
+  - window_name: py - sync
+    start_directory: /Users/colino/Work/ete-sync-heroku-docker/projects/ete-sync-heroku
+    panes:
+      - venv && python manage.py runserver
+
+  - window_name: ui
+    start_directory: /Users/colino/Work/ete-sync-heroku-docker/projects/buyete-sync-ui
+    panes:
+      - yarn run dev
+
+  - window_name: rustlyne
+    start_directory: /Users/colino/Work/rustlyne
+    panes:
+      - cargo run
+

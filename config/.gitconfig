@@ -1,0 +1,17 @@
+[user]
+	name = Colin Olson
+	email = thecolin@gmail.com
+
+[alias]
+    v = !gitk --all &
+    g = !git gui &
+    st = status
+    b = branch
+    co = commit
+    fap = fetch --all --prune
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential

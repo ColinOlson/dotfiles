@@ -1,0 +1,11 @@
+session_name: writeaway
+windows:
+  - window_name: server
+    start_directory: /Users/colino/Work/writeaway/wa-server
+    panes:
+      - set -a; source .env; set +a; HOST=0.0.0.0 yarn dev
+
+  - window_name: app
+    start_directory: /Users/colino/Work/writeaway/wa-app
+    panes:
+      - yarn start

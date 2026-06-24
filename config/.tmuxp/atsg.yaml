@@ -1,0 +1,19 @@
+session_name: atsg
+windows:
+  - window_name: api
+    start_directory: /Users/colino/Work/atsg/atsg-node-api/
+    panes:
+      - nvm use
+      - yarn run dev
+
+  - window_name: web
+    start_directory: /Users/colino/Work/atsg/atsg-website/site
+    panes:
+      - shell_command:
+          - nvm use 16
+          - yarn run dev-no-patch
+
+  - window_name: docker
+    start_directory: /Users/colino/Work/atsg/docker-support/
+    panes:
+      - docker compose up
