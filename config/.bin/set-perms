@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'USAGE'
+Usage: set-perms -d MODE -f MODE PATH [PATH ...]
+
+Recursively set directory and file permissions below each PATH.
+
+Options:
+  -d, --dirs MODE    Permission mode to apply to directories.
+  -f, --files MODE   Permission mode to apply to regular files.
+  -h, --help         Show this help.
+
+Examples:
+  set-perms -d 755 -f 644 my-files
+  set-perms --dirs 700 private-dir
+  set-perms --files u=rw,go=r shared-dir
+USAGE
+}
+
+die() {
+  printf 'set-perms: %s\n' "$*" >&2
+  exit 1
+}
+
+dir_mode=
+file_mode=
+paths=()
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -d|--dirs)
+      [ "$#" -ge 2 ] || die "$1 requires a mode"
+      dir_mode=$2
+      shift 2
+      ;;
+    -f|--files)
+      [ "$#" -ge 2 ] || die "$1 requires a mode"
+      file_mode=$2
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      paths+=("$@")
+      break
+      ;;
+    -*)
+      die "unknown option: $1"
+      ;;
+    *)
+      paths+=("$1")
+      shift
+      ;;
+  esac
+done
+
+[ -n "$dir_mode" ] || [ -n "$file_mode" ] || die "specify at least one of -d MODE or -f MODE"
+[ "${#paths[@]}" -gt 0 ] || die "specify at least one path"
+
+for path in "${paths[@]}"; do
+  [ -e "$path" ] || die "path does not exist: $path"
+  [ -d "$path" ] || die "path is not a directory: $path"
+done
+
+for path in "${paths[@]}"; do
+  if [ -n "$dir_mode" ]; then
+    find "$path" -type d -exec chmod "$dir_mode" {} +
+  fi
+
+  if [ -n "$file_mode" ]; then
+    find "$path" -type f -exec chmod "$file_mode" {} +
+  fi
+done

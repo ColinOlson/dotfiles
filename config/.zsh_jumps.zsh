@@ -79,13 +79,6 @@ tmuxp_project() {
   "${tmuxp_args[@]}"
 }
 
-bindkey -s '^G' 'jump\n'
-bindkey -s '^X^P' 'tmuxp_project\n'
-
-
-
-
-
 function sesh-sessions() {
   {
     exec </dev/tty
@@ -98,6 +91,8 @@ function sesh-sessions() {
   }
 }
 
+bindkey -s '^G' 'jump\n'
+bindkey -s '^X^P' 'tmuxp_project\n'
 zle     -N             sesh-sessions
 bindkey -M emacs '\es' sesh-sessions
 bindkey -M vicmd '\es' sesh-sessions

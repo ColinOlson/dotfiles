@@ -41,6 +41,17 @@ lg() {
     unset LAZYGIT_NEW_DIR_FILE
 }
 
+restow() {
+    pushd ~/Dotfiles/config >/dev/null || return
+    stow -R -t "$HOME" .
+    local RES=$?
+    popd >/dev/null
+    return $RES
+}
+
+alias j=jj
+alias ju=jjui
+
 alias ld="lazydocker"
 
 alias dc="docker compose"

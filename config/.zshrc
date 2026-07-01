@@ -32,7 +32,6 @@ if command -v ngrok &>/dev/null; then
 fi
 
 source ~/.aliases.zsh
-
 source ~/.zsh_jumps.zsh
 
 # Tmux
@@ -49,6 +48,7 @@ export PATH="$PATH:/Users/colino/.lmstudio/bin"
 # End of LM Studio CLI section
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.bin:$PATH"
 
 # Android dev
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
@@ -63,3 +63,7 @@ export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# jj
+export EDITOR=vi
+export fpath=(~/.zsh/completions $fpath)
