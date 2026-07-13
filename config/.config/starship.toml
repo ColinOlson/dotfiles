@@ -1,0 +1,135 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[](white)\
+$os\
+[](bg:blue fg:white)\
+$directory\
+[](bg:green fg:blue)\
+$git_branch\
+$git_status\
+[](fg:green bg:yellow)\
+$rust\
+$nodejs\
+$python\
+[ ](fg:yellow)\
+$cmd_duration\
+$fill\
+[](bg:none fg:black)\
+$status\
+[  ](bg:black fg:yellow)\
+$username\
+$hostname\
+[](bg:black fg:white)\
+$time\
+[](fg:white)
+$character
+"""
+
+[os]
+disabled = false
+style = "bg:white fg:black"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Ubuntu = "󰕈"
+Raspbian = "󰐿"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Fedora = "󰣛"
+Alpine = ""
+Arch = "󰣇"
+Debian = "󰣚"
+Redhat = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:black fg:yellow"
+style_root = "bg:red fg:black"
+format = '[$user]($style)'
+
+[hostname]
+ssh_only = false
+ssh_symbol = ''
+format = "[@$hostname( [$ssh_symbol](blue)) ](yellow bg:black)"
+
+[directory]
+style = "bg:blue fg:#eeeeee bold"
+format = "[  $path ]($style)"
+truncation_length = 10
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol $branch ](fg:black bg:green)]($style)'
+
+[git_status]
+style = "bg:green"
+format = '[[($all_status$ahead_behind )](fg:black bg:green)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol( $version) ](fg:black bg:yellow)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol( $version) ](fg:black bg:yellow)]($style)'
+
+[python]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:black bg:yellow)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:blue"
+format = '[[ $symbol( $context) ](fg:black bg:blue)]($style)'
+
+[fill]
+symbol = '·'
+style = "#444444"
+
+[time]
+disabled = false
+time_format = "%R"
+format = '[[ at  $time ](fg:black bg:white)]($style)'
+
+[status]
+disabled = false
+symbol = "✗"
+success_symbol = "✔"
+style = "bold red bg:black"
+success_style = "bold green bg:black"
+format = "[$symbol]($style)"
+
+[line_break]
+disabled = true
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:green)'
+vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
+vimcmd_replace_symbol = '[❮](bold fg:lavender)'
+vimcmd_visual_symbol = '[❮](bold fg:green)'
+
+[cmd_duration]
+show_milliseconds = true
+format = " in $duration"
+style = "bg:none"
+disabled = false
+show_notifications = true
+min_time_to_notify = 45000
+

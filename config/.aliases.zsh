@@ -12,7 +12,7 @@ alias nls="nslookup"
 
 alias vi=nvim
 
-alias vrc="vi ~/.zshrc"
+alias vrc="hx ~/.zshrc"
 alias src="source ~/.zshrc"
 
 nohist() {
@@ -49,6 +49,14 @@ restow() {
     return $RES
 }
 
+function k() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	command rm -f -- "$tmp"
+}
+
 alias j=jj
 alias ju=jjui
 
@@ -74,6 +82,10 @@ alias atsg-load='tmuxp load atsg'
 alias buyete-load='tmuxp load buyete'
 alias writeaway-load='tmuxp load writeaway'
 alias franses-load='tmuxp load franses'
+
+alias freenas='ssh freenas.olson'
+alias nix-docker='ssh nix-docker.olson'
+alias private-nas='ssh truenas_admin@private-nas.olson'
 
 alias tail-sync-stage="heroku logs --tail -a ete-sync-stage"
 alias tail-buyete-stage="heroku logs --tail -a buyete-stage"

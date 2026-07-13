@@ -7,8 +7,10 @@
     g = !git gui &
     st = status
     b = branch
-    co = commit
+    ci = commit
+    co = checkout
     fap = fetch --all --prune
+
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
