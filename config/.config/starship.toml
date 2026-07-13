@@ -51,8 +51,8 @@ format = '[$user]($style)'
 
 [hostname]
 ssh_only = false
-ssh_symbol = ''
-format = "[@$hostname( [$ssh_symbol](blue)) ](yellow bg:black)"
+ssh_symbol = ' '
+format = "[@$hostname](yellow bg:black)[$ssh_symbol](blue bg:black)[ ](yellow bg:black)"
 
 [directory]
 style = "bg:blue fg:#eeeeee bold"
@@ -132,4 +132,3 @@ style = "bg:none"
 disabled = false
 show_notifications = true
 min_time_to_notify = 45000
-
