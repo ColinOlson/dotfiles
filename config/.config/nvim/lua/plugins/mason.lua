@@ -9,9 +9,6 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        pyright = {
-          cmd = "pyright",
-        },
         rust_analyzer = {
           cmd = "rust-analyzer",
         },

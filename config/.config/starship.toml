@@ -8,10 +8,13 @@ $directory\
 [](bg:green fg:blue)\
 $git_branch\
 $git_status\
-[](fg:green bg:yellow)\
+([](bg:green fg:black)$git_state)\
+[](fg:green bg:black)$git_metrics\
+[](fg:black bg:yellow)\
 $rust\
 $nodejs\
 $python\
+$docker_context\
 [ ](fg:yellow)\
 $cmd_duration\
 $fill\
@@ -76,6 +79,16 @@ format = '[[ $symbol $branch ](fg:black bg:green)]($style)'
 style = "bg:green"
 format = '[[($all_status$ahead_behind )](fg:black bg:green)]($style)'
 
+[git_state]
+style = "bg:green fg:black"
+format = '[ $state( $progress_current/$progress_total )]($style)'
+
+[git_metrics]
+disabled = false
+added_style = "bold green bg:black"
+deleted_style = "bold red bg:black"
+format = "[( [+$added]($added_style) )([-$deleted]($deleted_style) )](bg:black)"
+
 [nodejs]
 symbol = ""
 style = "bg:yellow"
@@ -94,7 +107,7 @@ format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:black bg:yellow)]($style)
 [docker_context]
 symbol = ""
 style = "bg:blue"
-format = '[[ $symbol( $context) ](fg:black bg:blue)]($style)'
+format = '[[ $symbol( $context) ](fg:black bg:yellow)]($style)'
 
 [fill]
 symbol = '·'
@@ -126,7 +139,7 @@ vimcmd_replace_symbol = '[❮](bold fg:lavender)'
 vimcmd_visual_symbol = '[❮](bold fg:green)'
 
 [cmd_duration]
-show_milliseconds = true
+show_milliseconds = false
 format = " in $duration"
 style = "bg:none"
 disabled = false
